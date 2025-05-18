@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name:  Welcome to the Microsoft Generative AI
 on:
   # Trigger the workflow on new issue
@@ -32,3 +33,39 @@ jobs:
         with:
           repo-token:  ${{ secrets.GITHUB_TOKEN }}
           assignees: koreyspace
+=======
+name:  Welcome to the Microsoft Generative AI
+on:
+  # Trigger the workflow on new issue
+  issues:
+    types: [opened]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  asses-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add Label and thanks comment to Issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issueAuthor = context.payload.sender.login
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['needs-review']
+            })
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `👋 Thanks for contributing @${ issueAuthor }! We will review the issue and get back to you soon.`
+            })
+      - name: Auto-assign issue
+        uses: pozil/auto-assign-issue@v2
+        with:
+          repo-token:  ${{ secrets.GITHUB_TOKEN }}
+          assignees: koreyspace
+>>>>>>> b88b09e22d023505eb4b289b4b85fe9f42c33293

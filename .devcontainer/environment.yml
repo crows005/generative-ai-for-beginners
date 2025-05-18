@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: <environment-name>
 channels:
  - defaults
@@ -8,3 +9,15 @@ dependencies:
 - pip
 - pip:
   - azure-ai-inference
+=======
+name: dev
+channels:
+ - defaults
+dependencies:
+- python=3.10.0
+- openai
+- python-dotenv
+- pip
+- pip:
+  - azure-ai-inference
+>>>>>>> b88b09e22d023505eb4b289b4b85fe9f42c33293

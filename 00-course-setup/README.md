@@ -177,6 +177,56 @@ This can be created by selecting the `Code` option on your forked version of thi
 ### 3. Storing Your API Keys
 
 Keeping your API keys safe and secure is important when building any type of application. We recommend not to store any API keys directly in your code. Committing those details to a public repository could result in security issues and even unwanted costs if used by a bad actor.
+Here's a step-by-step guide on how to create a `.env` file for Python and add the `GITHUB_TOKEN`:
+
+1. **Navigate to Your Project Directory**: Open your terminal or command prompt and navigate to your project's root directory where you want to create the `.env` file.
+
+   ```bash
+   cd path/to/your/project
+   ```
+
+2. **Create the `.env` File**: Use your preferred text editor to create a new file named `.env`. If you're using the command line, you can use `touch` (on Unix-based systems) or `echo` (on Windows):
+
+   Unix-based systems:
+   ```bash
+   touch .env
+   ```
+
+   Windows:
+   ```cmd
+   echo . > .env
+   ```
+
+3. **Edit the `.env` File**: Open the `.env` file in a text editor (e.g., VS Code, Notepad++, or any other editor). Add the following line to the file, replacing `your_github_token_here` with your actual GitHub token:
+
+   ```env
+   GITHUB_TOKEN=your_github_token_here
+   ```
+
+4. **Save the File**: Save the changes and close the text editor.
+
+5. **Install `python-dotenv`**: If you haven't already, you'll need to install the `python-dotenv` package to load environment variables from the `.env` file into your Python application. You can install it using `pip`:
+
+   ```bash
+   pip install python-dotenv
+   ```
+
+6. **Load Environment Variables in Your Python Script**: In your Python script, use the `python-dotenv` package to load the environment variables from the `.env` file:
+
+   ```python
+   from dotenv import load_dotenv
+   import os
+
+   # Load environment variables from .env file
+   load_dotenv()
+
+   # Access the GITHUB_TOKEN variable
+   github_token = os.getenv("GITHUB_TOKEN")
+
+   print(github_token)
+   ```
+
+That's it! You've successfully created a `.env` file, added your GitHub token, and loaded it into your Python application.
 
 ## How to Run locally on your computer
 
@@ -191,7 +241,9 @@ cd generative-ai-for-beginners
 
 Once you have everything checked out, you can get started!
 
-### Installing Miniconda (optional step)
+## Optional Steps 
+
+### Installing Miniconda 
 
 [Miniconda](https://conda.io/en/latest/miniconda.html?WT.mc_id=academic-105485-koreyst) is a lightweight installer for installing [Conda](https://docs.conda.io/en/latest?WT.mc_id=academic-105485-koreyst), Python, as well as a few packages.
 Conda itself is a package manager, that makes it easy to setup and switch between different Python [**virtual environments**](https://docs.python.org/3/tutorial/venv.html?WT.mc_id=academic-105485-koreyst) and packages. It also comes in handy for installing packages that are not available via `pip`.
@@ -208,12 +260,21 @@ Go ahead and populate your environment file with the snippet below:
 name: <environment-name>
 channels:
  - defaults
+ - microsoft
 dependencies:
 - python=<python-version>
 - openai
 - python-dotenv
-- azure-ai-inference
+- pip
+- pip:
+    - azure-ai-ml
 
+```
+
+If you find you getting errors using conda you can mannually install the Microsoft AI Libraries using the following command in a terminal. 
+
+```
+conda install -c microsoft azure-ai-ml
 ```
 
 The environment file specifies the dependencies we need. `<environment-name>` refers to the name you would like to use for your Conda environment, and `<python-version>` is the version of Python you would like to use, for example, `3` is the latest major version of Python.
@@ -229,7 +290,7 @@ Refer to the [Conda environments guide](https://docs.conda.io/projects/conda/en/
 
 ### Using Visual Studio Code with the Python support extension
 
-We recommend using the [Visual Studio Code (VS Code)](http://code.visualstudio.com/?WT.mc_id=academic-105485-koreyst) editor with the [Python support extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python&WT.mc_id=academic-105485-koreyst) installed for this course. This is, however, more of a recommendation and not a definite requirement
+We recommend using the [Visual Studio Code (VS Code)](https://code.visualstudio.com/?WT.mc_id=academic-105485-koreyst) editor with the [Python support extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python&WT.mc_id=academic-105485-koreyst) installed for this course. This is, however, more of a recommendation and not a definite requirement
 
 > **Note**: By opening the course repository in VS Code, you have the option to set the project up within a container. This is because of the [special `.devcontainer`](https://code.visualstudio.com/docs/devcontainers/containers?itemName=ms-python.python&WT.mc_id=academic-105485-koreyst) directory found within the course repository. More on this later.
 
